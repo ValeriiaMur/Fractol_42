@@ -6,7 +6,7 @@
 /*   By: vmuradia <vmuradia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 16:09:35 by vmuradia          #+#    #+#             */
-/*   Updated: 2018/12/04 16:14:42 by vmuradia         ###   ########.fr       */
+/*   Updated: 2018/12/05 19:02:08 by vmuradia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <math.h>
 #include "./libft/libft.h"
 #include "./minilibx/mlx.h"
+#include <stdio.h> //delete later
 
 typedef struct	s_data
 {
@@ -30,20 +31,29 @@ typedef struct	s_data
 	double 		maxReal;
 	double		min_i;
 	double		max_i;
-	double 		zoom;
+	double		cRe;
+	double		cIm;
+	double		moveX;
+	double		moveY;
+	double		newRe;
+	double		newIm;
+	double		oldRe;
+	double		oldIm;
+	double		zoom;
 }				t_data;
 
 void 	mandelbrot_init(t_data *data);
 int 	findN(double cr, double ci, double max_n);
 void	ft_zoom(int x, int y, t_data *data, double max_n);
 void	ft_dezoom(int x, int y, t_data *data, double max_n);
-int		mouse_hook(int mousecode, int x, int y, t_data *data, int max_n);
 double 	find_real(int x, t_data *data);
 double 	find_imaginary(int y, t_data *data);
 void 	mandelbrot(t_data *data);
-void 	fractol_init(t_data *data);
 int 	fract_select(char **argv, t_data *data);
 int 	keys(int key, t_data *data);
+void	julia(t_data *data);
+void	julia_init(t_data *data);
+int		mouse_hook(int mousecode, int x, int y, t_data *data, int max_n);
 
 
 #endif
