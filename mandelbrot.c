@@ -6,7 +6,7 @@
 /*   By: vmuradia <vmuradia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 16:05:03 by vmuradia          #+#    #+#             */
-/*   Updated: 2018/12/05 18:47:28 by vmuradia         ###   ########.fr       */
+/*   Updated: 2018/12/06 20:25:47 by vmuradia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void mandelbrot_init(t_data *data)
 	data->color = 0xd7afd7;
 	data->zoom = 200;
 	data->moveY = 0;
+	data->max_n = 100;
 	mandelbrot(data);
 }
 
@@ -43,7 +44,6 @@ int findN(double cr, double ci, double max_n)
 
 void mandelbrot(t_data *data)
 {
-	double	max_n = 100;
 	int x = 100;
 	int y = 100;
 
@@ -54,13 +54,11 @@ void mandelbrot(t_data *data)
 		{
 			double cr = find_real(x, data);
 			double ci = find_imaginary(y, data);
-			int n = findN(cr, ci, max_n);
-			if (n == max_n)
+			int n = findN(cr, ci, data->max_n);
+			if (n == data->max_n)
 				mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, 0x000000);
-			else if (n > 0 && n < max_n / 2-1)
+			else
 				mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, (data->color * n / 50));
-			else if (n > max_n/2 && n < max_n - 1)
-				mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, (data->color * n / 100));
 			y++;
 		}
 		x++;

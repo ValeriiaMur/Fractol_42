@@ -6,7 +6,7 @@
 /*   By: vmuradia <vmuradia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 16:16:50 by vmuradia          #+#    #+#             */
-/*   Updated: 2018/12/05 17:44:55 by vmuradia         ###   ########.fr       */
+/*   Updated: 2018/12/06 20:12:07 by vmuradia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ int fract_select(char **argv, t_data *data)
 		data->fractol = 1;
 		julia_init(data);
 	}
-	else if (ft_strcmp(argv[1], " ") == 0)
-		data->fractol = 2;
+	// else if (ft_strcmp(argv[1], "fern") == 0)
+	// 	data->fractol = 2;
+	// 	fern(data);
 	else
 	{
-		ft_putendl("Usage: ./fractol [julia] or [mandelbrot] or [..]\n");
+		ft_putendl("Usage: ./fractol [julia] or [mandelbrot] or [fern]\n");
 		return (0);
 	}
 	return (1);
@@ -46,7 +47,8 @@ int main(int argc, char **argv)
 		if ((fract_select(argv, data)) == 0)
 			return (-1);
 		mlx_key_hook(data->win_ptr, keys, data);
-		mlx_mouse_hook(data->win_ptr, mouse_hook, data);
+		mlx_hook(data->win_ptr, 6, 1L < 6, mouse_julia, data);
+		mlx_hook(data->win_ptr, 4, 0, mouse_hook, data);
 		mlx_loop(data->mlx_ptr);
 		free(data);
 	}
