@@ -18,4 +18,12 @@ A fractal is an abstract mathematical object, like a curve or a surface, which h
 
 ./fractol [julia]
 
+![julia](https://pp.userapi.com/c849128/v849128111/d36dc/k0b955IDw54.jpg)
+
+Zooming in...
+
+![julzoom](https://pp.userapi.com/c849128/v849128111/d36e6/3qX-3KwFeeY.jpg)
+
 ./fractol [fern]
+
+![fern](https://pp.userapi.com/c849128/v849128111/d36f0/XxQXaYQqt5E.jpg)
