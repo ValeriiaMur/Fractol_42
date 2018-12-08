@@ -8,8 +8,9 @@ A fractal is an abstract mathematical object, like a curve or a surface, which h
 
 **Supported features include:**
 
-* Zooming in and out
+* Zooming in and out with a mouse click or wheel
 * Change of colors (press 1, 2 or 3 to choose the color set)
+* Change of iterations (the closer you zoom in, the more detailed it gets)
 
 ./fractol [mandelbrot]
 
