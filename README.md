@@ -1,3 +1,3 @@
 # Fractol-42
 
-A lot of fun and headache at the same time.
+## This is my second graphics project at 42
