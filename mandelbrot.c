@@ -6,7 +6,7 @@
 /*   By: vmuradia <vmuradia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 16:05:03 by vmuradia          #+#    #+#             */
-/*   Updated: 2018/12/07 16:02:16 by vmuradia         ###   ########.fr       */
+/*   Updated: 2018/12/07 17:12:43 by vmuradia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,19 @@ void	mandelbrot_init(t_data *data)
 {
 	data->width = 1000;
 	data->height = 1000;
-	data->minReal = -2.05;
-	data->maxReal = 1.2;
+	data->minreal = -2.05;
+	data->maxreal = 1.2;
 	data->min_i = -1.3;
 	data->max_i = 1.2;
 	data->color = 0xd7afd7;
 	data->zoom = 200;
-	data->max_n = 200;
+	data->max_n = 100;
 	mandelbrot(data);
 }
+
+/*
+** find a number of iterations for mandelbrot
+*/
 
 int		find_n(double cr, double ci, double max_n)
 {
@@ -60,9 +64,9 @@ void	mandelbrot(t_data *data)
 	{
 		while (y < data->height)
 		{
-			data->cRe = find_real(x, data);
-			data->cIm = find_imaginary(y, data);
-			n = find_n(data->cRe, data->cIm, data->max_n);
+			data->cre = find_real(x, data);
+			data->cim = find_imaginary(y, data);
+			n = find_n(data->cre, data->cim, data->max_n);
 			if (n == data->max_n)
 				mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, 0x000000);
 			else
@@ -75,12 +79,16 @@ void	mandelbrot(t_data *data)
 	}
 }
 
+/*
+** Find out the real and imaginary part for mandelbrot seperately
+*/
+
 double	find_real(int x, t_data *data)
 {
 	double	range;
 
-	range = data->maxReal - data->minReal;
-	return (x * (range / data->width) + data->minReal);
+	range = data->maxreal - data->minreal;
+	return (x * (range / data->width) + data->minreal);
 }
 
 double	find_imaginary(int y, t_data *data)

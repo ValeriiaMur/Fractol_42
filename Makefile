@@ -6,14 +6,13 @@
 #    By: vmuradia <vmuradia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/04 16:18:04 by vmuradia          #+#    #+#              #
-#    Updated: 2018/12/05 17:44:57 by vmuradia         ###   ########.fr        #
+#    Updated: 2018/12/07 17:10:33 by vmuradia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -g
-# -fsanitize=address -fsanitize=undefined
 SRC = 	*.c
 HEADERS = fractol.h
 LIBFT = libft/libft.a

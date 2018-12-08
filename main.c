@@ -6,11 +6,15 @@
 /*   By: vmuradia <vmuradia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 16:16:50 by vmuradia          #+#    #+#             */
-/*   Updated: 2018/12/07 16:32:44 by vmuradia         ###   ########.fr       */
+/*   Updated: 2018/12/07 17:11:56 by vmuradia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+/*
+** Each fractal has a number. assign, select, init.
+*/
 
 int		fract_select(char **argv, t_data *data)
 {
@@ -36,6 +40,10 @@ int		fract_select(char **argv, t_data *data)
 	}
 	return (1);
 }
+
+/*
+** For iterations when zooming only
+*/
 
 void	put_text(t_data *data)
 {

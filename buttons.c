@@ -6,15 +6,19 @@
 /*   By: vmuradia <vmuradia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 16:16:07 by vmuradia          #+#    #+#             */
-/*   Updated: 2018/12/07 16:31:54 by vmuradia         ###   ########.fr       */
+/*   Updated: 2018/12/07 17:14:40 by vmuradia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+/*
+** Zoom and dezoom mandelbrot
+*/
+
 void	ft_zoom(int x, int y, t_data *data)
 {
-	data->minReal = (x / data->zoom + data->minReal) - (x / (data->zoom * 1.2));
+	data->minreal = (x / data->zoom + data->minreal) - (x / (data->zoom * 1.2));
 	data->min_i = (y / data->zoom + data->min_i) - (y / (data->zoom * 1.2));
 	data->zoom *= 1.2;
 	data->max_n++;
@@ -22,12 +26,16 @@ void	ft_zoom(int x, int y, t_data *data)
 
 void	ft_dezoom(int x, int y, t_data *data)
 {
-	data->minReal = (x / data->zoom + data->minReal) - (x /
+	data->minreal = (x / data->zoom + data->minreal) - (x /
 		(data->zoom / 1.2));
 	data->min_i = (y / data->zoom + data->min_i) - (y / (data->zoom / 1.2));
 	data->zoom /= 1.2;
 	data->max_n--;
 }
+
+/*
+** Using mouse to zoom and dezoom + increase/dicrease iterations
+*/
 
 int		mouse_hook(int mousecode, int x, int y, t_data *data)
 {
@@ -42,7 +50,8 @@ int		mouse_hook(int mousecode, int x, int y, t_data *data)
 	}
 	else if (data->fractol == 1)
 		zoom_julia(data, mousecode);
-	else if (data->fractol == 2)
+	put_text(data);
+	if (data->fractol == 2)
 	{
 		if (mousecode == 2 || mousecode == 5)
 			data->zoom *= 1.2;
@@ -51,7 +60,6 @@ int		mouse_hook(int mousecode, int x, int y, t_data *data)
 		mlx_clear_window(data->mlx_ptr, data->win_ptr);
 		fern(data);
 	}
-	put_text(data);
 	return (0);
 }
 
@@ -70,6 +78,10 @@ void	zoom_julia(t_data *data, int mousecode)
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	julia(data);
 }
+
+/*
+** Change colors for all + exit. keys
+*/
 
 int		keys(int key, t_data *data)
 {
