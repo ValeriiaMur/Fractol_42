@@ -6,56 +6,60 @@
 /*   By: vmuradia <vmuradia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 19:22:49 by vmuradia          #+#    #+#             */
-/*   Updated: 2018/12/07 09:59:33 by vmuradia         ###   ########.fr       */
+/*   Updated: 2018/12/07 16:29:42 by vmuradia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <time.h>
 #include "fractol.h"
 
-
-void fern(t_data *data)
+void fern_init(t_data *data)
 {
 	data->width = 1000;
 	data->height = 1000;
-	unsigned long iter = 10000;
-	double x0=0;
-	double y0=0;
-	double x1 = 100;
-	double y1 = 100;
-	int diceThrow;
-	time_t t;
-	srand((unsigned)time(&t));
+	data->oldRe = 0;
+	data->newRe = 0;
+	data->oldIm = 0;
+	data->newIm = 0;
+	data->color = 0x00ff00;
+	data->zoom = 1;
+	fern(data);
+}
 
-	while(iter>0){
-		diceThrow = rand()%100;
-
-		if(diceThrow==0){
-			x1 = 0;
-			y1 = 0.16*y0;
-		}
-
-		else if(diceThrow>=1 && diceThrow<=7){
-			x1 = -0.15*x0 + 0.28*y0;
-			y1 = 0.26*x0 + 0.24*y0 + 0.44;
-		}
-
-		else if(diceThrow>=8 && diceThrow<=15){
-			x1 = 0.2*x0 - 0.26*y0;
-			y1 = 0.23*x0 + 0.22*y0 + 1.6;
-		}
-
-		else{
-			x1 = 0.85*x0 + 0.04*y0;
-			y1 = -0.04*x0 + 0.85*y0 + 1.6;
-		}
-
-		mlx_pixel_put(data->mlx_ptr, data->win_ptr, 30*x1 + data->width/2, 50*y1 + data->height / 3, 0x00ff00);
-
-		x0 = x1;
-		y0 = y1;
-
-		iter--;
+void second_part(t_data *data)
+{
+	if(data->random>=1 && data->random<=7)
+	{
+		data->newRe = -0.15*data->oldRe + 0.28*data->oldIm * data->zoom;
+		data->newIm = 0.26*data->oldRe + 0.24*data->oldIm + 0.44 * data->zoom;
 	}
+	else if(data->random>=8 && data->random<=15){
+		data->newRe = 0.2*data->oldRe - 0.26*data->oldIm * data->zoom;
+		data->newIm = 0.23*data->oldRe + 0.22*data->oldIm + 1.6 * data->zoom;
+	}
+	else
+	{
+		data->newRe = 0.85*data->oldRe + 0.04*data->oldIm * data->zoom;
+		data->newIm = -0.04*data->oldRe + 0.85*data->oldIm + 1.6 * data->zoom;
+	}
+}
 
+void fern(t_data *data)
+{
+	data->max_n = 10000;
+	while(data->max_n > 0)
+	{
+		data->random = rand()%100;
+		if(data->random == 0)
+		{
+			data->newRe = 0 * data->zoom;
+			data->newIm = 0.16 * data->oldIm * data->zoom;
+		}
+		else
+			second_part(data);
+		mlx_pixel_put(data->mlx_ptr, data->win_ptr, 30*data->newRe +
+			data->width/2, 50*data->newIm + data->height / 3, data->color);
+		data->oldRe = data->newRe;
+		data->oldIm = data->newIm;
+		data->max_n--;
+	}
 }
